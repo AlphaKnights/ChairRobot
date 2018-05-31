@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team6695.robot;
 
+import com.ctre.CANTalon;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -21,24 +24,23 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  * project.
  */
 public class Robot extends IterativeRobot {
-	Talon rf;
-	Talon rb;
-	Talon lf;
-	Talon lb;
-	DifferentialDrive diffDrive;
+	TalonSRX rf;
+	TalonSRX rb;
+	TalonSRX lf;
+	TalonSRX lb;
+	MvvDrive mvvdrive;
 	SpeedControllerGroup left;
 	SpeedControllerGroup right;
 	Joystick joy;
 
 	@Override
 	public void robotInit() {
-		rf = new Talon(1); // Right Front
-		rb = new Talon(2); // Right Back
-		lf = new Talon(3); // Left Front
-		lb = new Talon(4); // Left Back
+		rf = new TalonSRX(1); // Right Front
+		rb = new TalonSRX(2); // Right Back
+		lf = new TalonSRX(3); // Left Front
+		lb = new TalonSRX(4); // Left Back
 
-		left = new SpeedControllerGroup(lf, lb);
-		diffDrive = new DifferentialDrive(rf, rb);
+		mvvdrive = new MvvDrive(rf, rb, lf, lb);
 		joy = new Joystick(0);
 	}
 
@@ -53,8 +55,15 @@ public class Robot extends IterativeRobot {
 	}
 
 	@Override
+	public void teleopInit() {
+		// TODO Auto-generated method stub
+		super.teleopInit();
+	}
+
+	@Override
 	public void teleopPeriodic() {
-		diffDrive.arcadeDrive(joy.getX() * joy.getThrottle(), joy.getZ() * joy.getThrottle(), joy.getTrigger());
+	//	DifferentialDrive
+		mvvdrive.arcadeDrive(joy.getY(), joy.getX(), joy.getTrigger(), joy.getThrottle());
 	}
 
 	@Override

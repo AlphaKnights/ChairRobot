@@ -12,8 +12,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,10 +32,11 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void robotInit() {
-		rf = new Talon(1);
-		rb = new Talon(2);
-		lf = new Talon(3);
-		lb = new Talon(4);
+		rf = new Talon(1); // Right Front
+		rb = new Talon(2); // Right Back
+		lf = new Talon(3); // Left Front
+		lb = new Talon(4); // Left Back
+
 		left = new SpeedControllerGroup(lf, lb);
 		diffDrive = new DifferentialDrive(rf, rb);
 		joy = new Joystick(0);
@@ -55,7 +54,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		diffDrive.arcadeDrive(joy.getX()*joy.getThrottle(), joy.getZ()*joy.getThrottle(), joy.getTrigger());
+		diffDrive.arcadeDrive(joy.getX() * joy.getThrottle(), joy.getZ() * joy.getThrottle(), joy.getTrigger());
 	}
 
 	@Override

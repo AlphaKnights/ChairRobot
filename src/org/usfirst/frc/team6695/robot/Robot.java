@@ -55,7 +55,7 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void teleopPeriodic() {
-		diffDrive.arcadeDrive(joy.getX(), joy.getZ(), joy.getTrigger());
+		diffDrive.arcadeDrive(joy.getX()*joy.getThrottle(), joy.getZ()*joy.getThrottle(), joy.getTrigger());
 	}
 
 	@Override

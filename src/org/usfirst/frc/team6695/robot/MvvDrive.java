@@ -3,12 +3,16 @@ package org.usfirst.frc.team6695.robot;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.RobotDriveBase;
 import edu.wpi.first.wpilibj.hal.HAL;
 import edu.wpi.first.wpilibj.hal.FRCNetComm.tInstances;
 import edu.wpi.first.wpilibj.hal.FRCNetComm.tResourceType;
 import edu.wpi.first.wpilibj.smartdashboard.SendableBuilder;
 
+/**
+ * Ideas from {@link DifferentialDrive}
+ */
 public class MvvDrive extends RobotDriveBase {
 	public static final double kDefaultQuickStopThreshold = 0.2;
 	public static final double kDefaultQuickStopAlpha = 0.1;
@@ -32,9 +36,9 @@ public class MvvDrive extends RobotDriveBase {
 			HAL.report(tResourceType.kResourceType_RobotDrive, 2, tInstances.kRobotDrive_ArcadeStandard);
 			m_reported = true;
 		}
-		
+
 		throttle = 1 - ((throttle + 1) / 2);
-		
+
 		xSpeed = limit(xSpeed);
 		xSpeed = applyDeadband(xSpeed, m_deadband);
 
@@ -73,13 +77,21 @@ public class MvvDrive extends RobotDriveBase {
 			}
 		}
 
-		m_leftMotor.set(ControlMode.PercentOutput, limit(leftMotorOutput) * m_maxOutput* throttle);
-		m_leftMotor2.set(ControlMode.PercentOutput, limit(leftMotorOutput) * m_maxOutput* throttle);
+		m_leftMotor.set(ControlMode.PercentOutput, limit(leftMotorOutput) * m_maxOutput * throttle);
+		m_leftMotor2.set(ControlMode.PercentOutput, limit(leftMotorOutput) * m_maxOutput * throttle);
 
-		m_rightMotor.set(ControlMode.PercentOutput, -limit(rightMotorOutput) * m_maxOutput* throttle);
-		m_rightMotor2.set(ControlMode.PercentOutput, -limit(rightMotorOutput) * m_maxOutput* throttle);
+		m_rightMotor.set(ControlMode.PercentOutput, -limit(rightMotorOutput) * m_maxOutput * throttle);
+		m_rightMotor2.set(ControlMode.PercentOutput, -limit(rightMotorOutput) * m_maxOutput * throttle);
 
 		m_safetyHelper.feed();
+	}
+
+	public void setDeadband(double deadband) {
+		m_deadband = deadband;
+	}
+
+	public void setMaxOutput(double maxOutput) {
+		m_maxOutput = maxOutput;
 	}
 
 	@Override

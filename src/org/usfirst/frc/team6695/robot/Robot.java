@@ -7,14 +7,11 @@
 
 package org.usfirst.frc.team6695.robot;
 
-import com.ctre.CANTalon;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
-import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -46,28 +43,22 @@ public class Robot extends IterativeRobot {
 
 	@Override
 	public void autonomousInit() {
-
 	}
 
 	@Override
 	public void autonomousPeriodic() {
-
 	}
 
 	@Override
 	public void teleopInit() {
-		// TODO Auto-generated method stub
-		super.teleopInit();
 	}
 
 	@Override
 	public void teleopPeriodic() {
-	//	DifferentialDrive
 		mvvdrive.arcadeDrive(joy.getY(), joy.getX(), joy.getTrigger(), joy.getThrottle());
 	}
 
 	@Override
 	public void testPeriodic() {
-
 	}
 }
